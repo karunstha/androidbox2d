@@ -34,10 +34,10 @@ void draw()
 
 }}}
 
+http://dev.processing.org/reference/core/javadoc/processing/core/PApplet.html
+
 = JBox2D Testbed class diagram =
 
 http://www.linuxgraphics.cn/images/physics/jbox2d_testbed_class_diagram.png
 
 
-
-http://dev.processing.org/reference/core/javadoc/processing/core/PApplet.html

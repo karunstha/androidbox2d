@@ -1,5 +1,4 @@
 #labels Featured,Phase-Design
-
 = Introduction =
 
 JBox2d uses the open source Processing library in the testbed.
@@ -35,7 +34,10 @@ void draw()
 
 }}}
 
+= JBox2D Testbed class diagram =
+
+http://www.linuxgraphics.cn/images/physics/jbox2d_testbed_class_diagram.png
+
 
 
 http://dev.processing.org/reference/core/javadoc/processing/core/PApplet.html
-

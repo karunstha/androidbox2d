@@ -1,0 +1,14 @@
+#summary Overview of this project.
+#labels Featured,Phase-Design
+
+= Introduction =
+
+This project port Box2D testbed to android. 
+
+JBox2D project has port Box2D to java. Android UI is based Java. So we only concern testbed.
+
+Box2d uses the open source Processing library in the testbed.We will port it to Android.  
+
+= How to port =
+  * Analyse JBox2D Testbed source code
+ 

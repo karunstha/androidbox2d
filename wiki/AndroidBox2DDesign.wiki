@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Design of graphics with androidbox2d.
 #labels Featured,Phase-Design
 
 = Introduction =

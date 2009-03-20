@@ -39,3 +39,7 @@ http://dev.processing.org/reference/core/javadoc/processing/core/PApplet.html
 = JBox2D Testbed class diagram =
 
 http://www.linuxgraphics.cn/images/physics/jbox2d_testbed_class_diagram.png
+
+First of all, DebugDraw is an abstract class which define some drawing methods and coordinate maping functions such as worldToScreen, ScreenToWorld, drawCircle, drawSolidCircle, drawPolygon, drawSolidPolygon, drawSegment, drawXForm, drawString, etc.  
+
+

@@ -40,6 +40,8 @@ http://dev.processing.org/reference/core/javadoc/processing/core/PApplet.html
 
 http://www.linuxgraphics.cn/images/physics/jbox2d_testbed_class_diagram.png
 
-  * DebugDraw is an abstract class which define some drawing methods and coordinate maping functions.
-    * worldToScreen()
-    * ScreenToWorld(), drawCircle(), drawSolidCircle(), drawPolygon(), drawSolidPolygon(), drawSegment(), drawXForm(), drawString()  
+  * DebugDraw is an abstract class which define some drawing methods and coordinate maping functions such as worldToScreen(), ScreenToWorld(), drawCircle(),etc. 
+  * ProcessingDebugDraw extends from DebugDraw. It use processing library to implement the methods of DebugDraw.
+  * AbstrcatExample is an abstract class which define the common vars and methods of all test.
+  * Extending from AbstractExample, pyramid and other classes implement many examples such as BipedTest, Bridge, VaryingRestitution, VaryingFriction and so on.
+  * TestbedMain 

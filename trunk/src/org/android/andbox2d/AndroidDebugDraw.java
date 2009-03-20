@@ -61,12 +61,17 @@ public class AndroidDebugDraw extends DebugDraw {
     public float scaleFactor = 20.0f;
     public float yFlip = -1.0f; //flip y coordinate
     
+    private float map(float value, float istart, float istop, float ostart, float ostop)
+    {
+    	return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
+    }
+    
     public void setCamera(float x, float y, float scale) {
-    	/*
-    	transX = PApplet.map(x,0.0f,-1.0f,g.width*.5f,g.width*.5f+scale);
-    	transY = PApplet.map(y,0.0f,yFlip*1.0f,g.height*.5f,g.height*.5f+scale);
+    	
+    	transX = map(x,0.0f,-1.0f,mBitmap.getWidth()*.5f,mBitmap.getWidth()*.5f+scale);
+    	transY = map(y,0.0f,yFlip*1.0f,mBitmap.getHeight()*.5f,mBitmap.getHeight()*.5f+scale);
     	scaleFactor = scale;
-    	*/
+    	
     }
 	
 	//public ProcessingDebugDraw(PApplet pApplet) {
@@ -83,27 +88,25 @@ public class AndroidDebugDraw extends DebugDraw {
 	}
 	
 	public Vec2 worldToScreen(Vec2 world) {
-/*
-		float x = PApplet.map(world.x, 0f, 1f, transX, transX+scaleFactor);
-		float y = PApplet.map(world.y, 0f, 1f, transY, transY+scaleFactor);
-		if (yFlip == -1.0f) y = PApplet.map(y,0f,g.height, g.height,0f);
+
+		float x = map(world.x, 0f, 1f, transX, transX+scaleFactor);
+		float y = map(world.y, 0f, 1f, transY, transY+scaleFactor);
+		if (yFlip == -1.0f) y = map(y,0f,mBitmap.getHeight(), mBitmap.getHeight(),0f);
 		return new Vec2(x, y);
-*/
-		return new Vec2(0, 0);
+
 	}
 	public Vec2 worldToScreen(float x, float y) {
 		return worldToScreen(new Vec2(x,y));
 	}
 	
 	public Vec2 screenToWorld(Vec2 screen) {
-		/*
-		float x = PApplet.map(screen.x, transX, transX+scaleFactor, 0f, 1f);
+		
+		float x = map(screen.x, transX, transX+scaleFactor, 0f, 1f);
 		float y = screen.y;
-		if (yFlip == -1.0f) y = PApplet.map(y,g.height,0f,0f,g.height);
-		y = PApplet.map(y, transY, transY+scaleFactor, 0f, 1f);
+		if (yFlip == -1.0f) y = map(y,mBitmap.getHeight(),0f,0f,mBitmap.getHeight());
+		y = map(y, transY, transY+scaleFactor, 0f, 1f);
 		return new Vec2(x,y);
-		*/
-		return new Vec2(0, 0);
+		
 	}
 	public Vec2 screenToWorld(float x, float y) {
 		return screenToWorld(new Vec2(x,y));
@@ -114,17 +117,18 @@ public class AndroidDebugDraw extends DebugDraw {
 	 */
 	@Override
 	public void drawCircle(Vec2 center, float radius, Color3f color) {
-/*
-		mCanvas.setBitmap(mBitmap);		
-		mCanvas.drawCircle(50, 50, 20, mPaint);
-*/		
-		/*
+		mCanvas.setBitmap(mBitmap);
+		
 		center = worldToScreen(center);
 		radius *= scaleFactor;
+		mCanvas.drawCircle(center.x, center.y, radius, mPaint);
+		
+/*
 		g.noFill();
 		float k_segments = 16.0f;
 		float k_increment = 2.0f * (float)Math.PI / k_segments;
 		float theta = 0.0f;
+
 		g.stroke(color.x, color.y, color.z);
 		g.noFill();
 		g.beginShape(PApplet.POLYGON);
@@ -136,7 +140,9 @@ public class AndroidDebugDraw extends DebugDraw {
 		}
 		g.vertex(center.x + radius, center.y);
 		g.endShape();
-		*/
+*/
+		
+		
 	}
 
 	
@@ -147,7 +153,13 @@ public class AndroidDebugDraw extends DebugDraw {
 	public void drawSolidCircle(Vec2 center, float radius, Vec2 axis,
 			Color3f color) {
 		
+		mCanvas.setBitmap(mBitmap);
 
+		center = worldToScreen(center);
+		radius = radius * scaleFactor;
+		
+		mCanvas.drawCircle(center.x, center.y, radius, mPaint);
+		
 		/*
 		center = worldToScreen(center);
 		radius = radius * scaleFactor;
@@ -181,7 +193,8 @@ public class AndroidDebugDraw extends DebugDraw {
 	 */
 	@Override
 	public void drawPolygon(Vec2[] vertices, int vertexCount, Color3f color) {
-				
+		mCanvas.setBitmap(mBitmap);
+		
 		/*
 		g.stroke(color.x, color.y, color.z);
 		g.noFill();
@@ -199,6 +212,7 @@ public class AndroidDebugDraw extends DebugDraw {
 	 */
 	@Override
 	public void drawSolidPolygon(Vec2[] vertices, int vertexCount, Color3f color) {
+		mCanvas.setBitmap(mBitmap);
 		
 		/*
 		g.noStroke();
@@ -221,6 +235,13 @@ public class AndroidDebugDraw extends DebugDraw {
 
 	@Override
 	public void drawSegment(Vec2 p1, Vec2 p2, Color3f color) {
+		mCanvas.setBitmap(mBitmap);
+		
+		p1 = worldToScreen(p1);
+		p2 = worldToScreen(p2);
+
+		mCanvas.drawLine(p1.x, p1.y, p2.x, p2.y, mPaint);
+		
 		/*
 		p1 = worldToScreen(p1);
 		p2 = worldToScreen(p2);
@@ -236,7 +257,9 @@ public class AndroidDebugDraw extends DebugDraw {
 	 * @see org.jbox2d.dynamics.DebugDraw#drawXForm(org.jbox2d.common.XForm)
 	 */
 	@Override
-	public void drawXForm(XForm xf) {				
+	public void drawXForm(XForm xf) {
+		mCanvas.setBitmap(mBitmap);
+		
 		/*
 		Vec2 p1 = xf.position.clone(), p2 = new Vec2();
 		float k_axisScale = 0.4f;
@@ -263,11 +286,9 @@ public class AndroidDebugDraw extends DebugDraw {
 	@Override
 	public void drawString(float x, float y, String s, Color3f color) {
 		
-		mCanvas.setBitmap(mBitmap);
-		
+		mCanvas.setBitmap(mBitmap);		
 		mCanvas.drawText(s, x, y, mPaint);
 			
-
 		
 		/*
 		//g.textFont(m_font, 36);
@@ -285,6 +306,16 @@ public class AndroidDebugDraw extends DebugDraw {
 
 	@Override
 	public void drawPoint(Vec2 position, float f, Color3f color) {
+		mCanvas.setBitmap(mBitmap);
+
+		/*
+		diameter is specified by the paint's stroke width
+		mPaint.setStrokeWidth(width);
+		*/
+		
+		position = worldToScreen(position);		
+		mCanvas.drawPoint(position.x, position.y, mPaint);
+		
 		/*
 		position = worldToScreen(position);
 		float k_segments = 5.0f;

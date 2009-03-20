@@ -4,6 +4,7 @@ package org.android.andbox2d;
 import java.util.ArrayList;
 
 import org.android.andbox2d.tests.Pyramid;
+import org.android.andbox2d.tests.VaryingRestitution;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.DebugDraw;
 
@@ -75,7 +76,8 @@ public class Box2DView extends View {
     		this.requestFocus();
     	}	
     	
-    	registerExample(new Pyramid(this));
+    	//registerExample(new Pyramid(this));
+    	registerExample(new VaryingRestitution(this));
     	
     	/* Set up the timers for FPS reporting */
     	nanos = new long[fpsAverageCount];

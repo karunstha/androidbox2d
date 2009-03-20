@@ -44,4 +44,4 @@ http://www.linuxgraphics.cn/images/physics/jbox2d_testbed_class_diagram.png
   * ProcessingDebugDraw extends from DebugDraw. It use processing library to implement the methods of DebugDraw.
   * AbstrcatExample is an abstract class which define the common vars and methods of all test.
   * Extending from AbstractExample, pyramid and other classes implement many examples such as BipedTest, Bridge, VaryingRestitution, VaryingFriction and so on.
-  * TestbedMain 
+  * TestbedMain is the application class which implement a processing app.

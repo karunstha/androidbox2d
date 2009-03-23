@@ -285,8 +285,6 @@ public class AndroidDebugDraw extends DebugDraw {
 	public void drawXForm(XForm xf) {
 		mCanvas.setBitmap(mBitmap);
 		
-		//Log.d (TAG, "drawXForm");
-		
 		/*
 		Vec2 p1 = xf.position.clone(), p2 = new Vec2();
 		float k_axisScale = 0.4f;

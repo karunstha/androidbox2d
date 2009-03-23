@@ -33,6 +33,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 
 /**
@@ -41,6 +42,9 @@ import android.graphics.drawable.Drawable;
  * @author ewjordan
  */
 public class AndroidDebugDraw extends DebugDraw {
+	
+    private static final String TAG = "AndBox2D AndroidDebugDraw";
+    
 	public static AndroidDebugDraw screen; //static rendering context for debug drawing from within other code
 
 	private boolean firstTime = true;
@@ -194,6 +198,16 @@ public class AndroidDebugDraw extends DebugDraw {
 	@Override
 	public void drawPolygon(Vec2[] vertices, int vertexCount, Color3f color) {
 		mCanvas.setBitmap(mBitmap);
+
+		for (int i = 0; i < vertexCount; ++i) {
+			int ind = (i+1<vertexCount)?i+1:(i+1-vertexCount);
+			Vec2 v1 = worldToScreen(vertices[i]);
+			Vec2 v2 = worldToScreen(vertices[ind]);
+			mCanvas.drawLine(v1.x, v1.y, v2.x, v2.y, mPaint);
+		}
+		
+		//Log.d (TAG, "drawPolygon");
+		
 		
 		/*
 		g.stroke(color.x, color.y, color.z);
@@ -213,6 +227,15 @@ public class AndroidDebugDraw extends DebugDraw {
 	@Override
 	public void drawSolidPolygon(Vec2[] vertices, int vertexCount, Color3f color) {
 		mCanvas.setBitmap(mBitmap);
+		
+		for (int i = 0; i < vertexCount; ++i) {
+			int ind = (i+1<vertexCount)?i+1:(i+1-vertexCount);
+			Vec2 v1 = worldToScreen(vertices[i]);
+			Vec2 v2 = worldToScreen(vertices[ind]);
+			mCanvas.drawLine(v1.x, v1.y, v2.x, v2.y, mPaint);
+		}
+		
+		//Log.d (TAG, "drawSolidPolygon");
 		
 		/*
 		g.noStroke();
@@ -241,6 +264,8 @@ public class AndroidDebugDraw extends DebugDraw {
 		p2 = worldToScreen(p2);
 
 		mCanvas.drawLine(p1.x, p1.y, p2.x, p2.y, mPaint);
+	
+		//Log.d (TAG, "drawSegment");
 		
 		/*
 		p1 = worldToScreen(p1);
@@ -259,6 +284,8 @@ public class AndroidDebugDraw extends DebugDraw {
 	@Override
 	public void drawXForm(XForm xf) {
 		mCanvas.setBitmap(mBitmap);
+		
+		//Log.d (TAG, "drawXForm");
 		
 		/*
 		Vec2 p1 = xf.position.clone(), p2 = new Vec2();
@@ -315,6 +342,8 @@ public class AndroidDebugDraw extends DebugDraw {
 		
 		position = worldToScreen(position);		
 		mCanvas.drawPoint(position.x, position.y, mPaint);
+		
+		//Log.d (TAG, "drawPoint");
 		
 		/*
 		position = worldToScreen(position);

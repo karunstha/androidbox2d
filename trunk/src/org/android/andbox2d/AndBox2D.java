@@ -1,9 +1,8 @@
 package org.android.andbox2d;
 
-import org.jbox2d.dynamics.DebugDraw;
-
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 public class AndBox2D extends Activity {
 	
@@ -18,5 +17,26 @@ public class AndBox2D extends Activity {
         
         mBox2DView = (Box2DView) findViewById (R.id.box2dview);
         mBox2DView.requestFocus ();
+    }
+    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	
+        switch (keyCode) {
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+        	mBox2DView.nextTest();
+            break;
+            
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+        	mBox2DView.preTest();
+            break;
+            
+        default:
+            break;
+            
+        }
+        
+    	return super.onKeyDown(keyCode, event);
+    	
     }
 }

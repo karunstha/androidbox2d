@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.android.andbox2d.tests.Pyramid;
 import org.android.andbox2d.tests.VaryingRestitution;
+import org.android.andbox2d.tests.VaryingFriction;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.DebugDraw;
 
@@ -75,8 +76,9 @@ public class Box2DView extends View {
     	for (int i=0; i<100; ++i) {
     		this.requestFocus();
     	}	
-    	
-    	//registerExample(new Pyramid(this));
+
+    	registerExample (new VaryingFriction(this));
+    	registerExample(new Pyramid(this));
     	registerExample(new VaryingRestitution(this));
     	
     	/* Set up the timers for FPS reporting */
@@ -186,4 +188,22 @@ public class Box2DView extends View {
     public void registerExample(AbstractExample test) {
     	tests.add(test);
     }
+    
+    public void preTest (){
+		--currentTestIndex;
+		if (currentTestIndex < 0) currentTestIndex = tests.size()-1;
+		//System.out.println(currentTestIndex);
+		currentTest = tests.get(currentTestIndex);
+		currentTest.needsReset = true;
+    }
+    
+    public void nextTest (){
+		++currentTestIndex;
+		if (currentTestIndex >= tests.size()) currentTestIndex = 0;
+		//System.out.println(currentTestIndex);
+		currentTest = tests.get(currentTestIndex);
+		currentTest.needsReset = true;
+
+    }
+
 }
